@@ -13,7 +13,6 @@
 /etc/pm/power.d
 /etc/pm/sleep.d
 /etc/skel
-/etc/sysconfig
 /etc/X11
 /etc/X11/applnk
 /etc/X11/fontpath.d
