@@ -52,7 +52,7 @@ module Omnibus
 
     # @see Base#package_name
     def package_name
-      "#{project.package_name}-#{project.build_version}-#{project.build_iteration}.appx"
+      "#{project.package_name}-#{project.build_version}-#{project.build_iteration}-#{Config.windows_arch}.appx"
     end
 
     #
@@ -68,7 +68,7 @@ module Omnibus
           friendly_name:   project.friendly_name,
           version:         windows_package_version,
           maintainer:      project.maintainer,
-          certificate_subject: certificate_subject,
+          certificate_subject: certificate_subject.gsub('"', "&quot;"),
         }
       )
     end
@@ -80,7 +80,7 @@ module Omnibus
     # @return [String]
     #
     def pack_command(appx_file)
-      "makeappx.exe pack /d \"#{windows_safe_path(project.install_dir)}\" /p #{appx_file}"
+      "makeappx.exe pack /d \"#{windows_safe_path(project.install_dir)}\" /o /p #{appx_file}"
     end
   end
 end

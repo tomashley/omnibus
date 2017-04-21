@@ -34,6 +34,7 @@ module Omnibus
     #   the list of all files
     #
     def glob(pattern)
+      pattern = Pathname.new(pattern).cleanpath.to_s
       Dir.glob(pattern, File::FNM_DOTMATCH).sort.reject do |file|
         basename = File.basename(file)
         IGNORED_FILES.include?(basename)
@@ -144,8 +145,7 @@ module Omnibus
             end
           end
         else
-          raise RuntimeError,
-            "Unknown file type: `File.ftype(source_file)' at `#{source_file}'!"
+          raise "Unknown file type: `File.ftype(source_file)' at `#{source_file}'!"
         end
       end
 
